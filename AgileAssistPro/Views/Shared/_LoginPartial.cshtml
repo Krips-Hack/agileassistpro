@@ -1,0 +1,27 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+<ul class="navbar-nav">
+@if (SignInManager.IsSignedIn(User))
+{//Si el usuario logra ingresar, se mostrará este menú que lo direccionará a la interfaz de usuario.
+    <li class="nav-item">
+        <a  class="nav-link text-dark" asp-area="identity" asp-page="/Account/Manage/Index" title="Administrar perfil">Hola Admin</a>
+    </li>
+    <li class="nav-item">
+        <form  class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+            <button  type="submit" class="nav-link btn btn-link text-dark">Cerrar Sesión</button>
+        </form>
+    </li>
+}
+else
+{
+    <li class="nav-item">
+        <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Register">Registrarse</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Login">Iniciar Sesión</a>
+    </li>
+    //Si el usuario no ingresa, menú que se ve es el de registro y el de iniciar sesión
+}
+</ul>
